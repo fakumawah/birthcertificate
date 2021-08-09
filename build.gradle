@@ -1,0 +1,51 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'application'
+	id 'com.github.johnrengelman.shadow' version '7.0.0'
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+group = 'de.frakit'
+version = '0.0.1'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'org.postgresql:postgresql'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
+}
+
+mainClassName = "de.frakit.birthcertificate.BirthcertificateApplication"
+
+test {
+	useJUnitPlatform()
+}
+
+jar {
+	manifest {
+		attributes 'Main-Class': mainClassName
+	}
+}
+
+//task createDistributable(type: Copy) {
+//	def distDir = file('build/dist')
+//	from('build/distributions') {
+//		include '*birthcertificate-0.0.1*.tar'
+//		rename '.*', 'birthcertificate.tar'
+//	}
+//	from('etc') {
+//		include '*'
+//	}
+//	destinationDir distDir
+//}
+//createDistributable.dependsOn distTar
