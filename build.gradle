@@ -4,11 +4,12 @@ plugins {
 	id 'java'
 	id 'application'
 	id 'com.github.johnrengelman.shadow' version '7.0.0'
+	id 'com.palantir.git-version' version '0.12.3'
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'
 group = 'de.frakit'
-version = '0.0.1'
+version gitVersion()
 sourceCompatibility = '11'
 
 repositories {
