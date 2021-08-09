@@ -36,21 +36,29 @@ test {
 //	enabled = false
 //}
 
+distributions {
+	main {
+		contents {
+			distributionBaseName = "birthcertificate"
+		}
+	}
+}
+
 jar {
 	manifest {
 		attributes 'Main-Class': mainClassName
 	}
 }
 
-//task createDistributable(type: Copy) {
-//	def distDir = file('build/dist')
-//	from('build/distributions') {
-//		include '*birthcertificate-0.0.1*.tar'
-//		rename '.*', 'birthcertificate.tar'
-//	}
-//	from('etc') {
-//		include '*'
-//	}
-//	destinationDir distDir
-//}
-//createDistributable.dependsOn distTar
+task createDistributable(type: Copy) {
+	def distDir = file('build/dist')
+	from('build/distributions') {
+		include '*birthcertificate-0.0.1*.tar'
+		rename '.*', 'birthcertificate.tar'
+	}
+	from('etc') {
+		include '*'
+	}
+	destinationDir distDir
+}
+createDistributable.dependsOn distTar
