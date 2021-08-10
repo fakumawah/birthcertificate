@@ -49,6 +49,6 @@ jobs:
       # build and push docker image to docker hub
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build --tag=birthcertificate:$TAG .
+          docker build --tag=fruakumawah/birthcertificate:$TAG .
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push fruakumawah/birthcertificate:$TAG
