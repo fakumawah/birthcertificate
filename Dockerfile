@@ -7,5 +7,5 @@ ENV JAVA_TOOL_OPTIONS="-Dfile.encoding=UTF-8 -XX:MinRAMPercentage=60.0 -XX:MaxRA
 WORKDIR /app
 EXPOSE 8080
 
-ADD /dist/birthcertificate.tar /app
+ADD build/dist/birthcertificate.tar /app
 CMD exec /app/birthcertificate*/bin/birthcertificate
