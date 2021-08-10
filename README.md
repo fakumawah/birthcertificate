@@ -3,7 +3,9 @@ Step 1: Create a local volume
 `docker create -v /var/lib/postgresql/data --name PostgresData alpine`
 
 Step 2: Run a postgress image with database=birthcertificate user=birthcertificate password=birthcertificate2021
-`docker run -p 5433:5432 --name postgres -e POSTGRES_DB=birthcertificate -e POSTGRES_USER=birthcertificate -e POSTGRES_PASSWORD=birthcertificate2021 -d --volumes-from PostgresData postgres`
+`docker run -p 5433:5432 --name postgres -e POSTGRES_DB=birthcertificate 
+-e POSTGRES_USER=birthcertificate -e POSTGRES_PASSWORD=birthcertificate2021
+-d --volumes-from PostgresData postgres -c shared_buffers=256MB -c max_connections=200`
 
 ###To build the birthcertificate application 
 Make sure to first commit all changes(even without pushing), then run
@@ -27,4 +29,13 @@ Then a distributable can be created in build/dist using
 
 This should show a list of citizens
 
-Some
+###For SemVersioning, this libary was used
+https://github.com/palantir/gradle-git-version
+https://karikevinod.medium.com/git-sem-versioning-spring-boot-project-25757df40377
+
+###Dockerise a Springboot application
+https://www.baeldung.com/dockerizing-spring-boot-application
+https://isurunuwanthilaka.medium.com/docker-zero-to-hero-with-springboot-postgres-e0b8c3a4dccb
+
+### To helmifyour application
+https://www.baeldung.com/ops/kubernetes-helm
