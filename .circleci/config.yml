@@ -42,5 +42,13 @@ jobs:
       # create Distributable
       - run: ./gradlew createDistributable
 
+      - setup_remote_docker:
+          version: 19.03.13
+          docker_layer_caching: true
+
       # build and push docker image to docker hub
-      - run: docker push fruakumawah/birthcertificate:$CIRCLE_BUILD_NUM
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build --tag=birthcertificate:$TAG .
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push fruakumawah/birthcertificate:$CIRCLE_BUILD_NUM
