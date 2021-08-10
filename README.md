@@ -6,9 +6,15 @@ Step 2: Run a postgress image with database=birthcertificate user=birthcertifica
 `docker run -p 5433:5432 --name postgres -e POSTGRES_DB=birthcertificate -e POSTGRES_USER=birthcertificate -e POSTGRES_PASSWORD=birthcertificate2021 -d --volumes-from PostgresData postgres`
 
 ###To build the birthcertificate application 
-`./gradlew clean build`
+Make sure to first commit all changes(even without pushing), then run
 
-This generates in build/libs a file called birthcertificate-<version>.jar
+`./gradlew clean disTar`
+
+This generates in build/libs a file called birthcertificate-<sem version>.tar
+
+Then a distributable can be created in build/dist using
+
+`./gradlew createDistributable  `
 
 ###To build the docker image (Dockerfile in root directory)
 `docker build --tag=birthcertificate-server:latest . `
