@@ -1,8 +1,17 @@
 package de.frakit.birthcertificate.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity(name = "Address")
 @Table(name = "address")
 public class Address {
@@ -18,125 +27,47 @@ public class Address {
             strategy = GenerationType.SEQUENCE,
             generator = "address_sequence"
     )
-    private Long address_id;
+    private Long addressId;
+
+//    @OneToMany(targetEntity = Citizen.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name="citizen_id", referencedColumnName = "citizen_id")
+//    private Set<Citizen> citizens;
+
+    @Column(name = "street")
     private String street;
+    @Column(name = "house_nr")
     private Integer house_nr;
+    @Column(name = "extra")
     private String extra;
+    @Column(name = "postcode")
     private String postcode;
+    @Column(name = "town")
     private String town;
+    @Column(name = "region")
     private Region region;
+    @Column(name = "createdDate", nullable = false)
     private LocalDate createdDate;
+    @Column(name = "lastModifiedDate", nullable = false)
     private LocalDate lastModifiedDate;
-    private String lastupdatedBy;
+    @Column(name = "lastupdatedBy", nullable = false)
+    private String lastModifiedBy;
 
-    public Address(String street, Integer house_nr, String extra, String postcode, String town, Region region, LocalDate createdDate, LocalDate lastModifiedDate, String lastupdatedBy) {
+    public Address(String street, Integer house_nr, String town) {
         this.street = street;
         this.house_nr = house_nr;
-        this.extra = extra;
-        this.postcode = postcode;
-        this.town = town;
-        this.region = region;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.lastupdatedBy = lastupdatedBy;
-    }
-
-    public Address() {
-    }
-
-    public Long getAddress_id() {
-        return address_id;
-    }
-
-    public void setAddress_id(Long address_id) {
-        this.address_id = address_id;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public Integer getHouse_nr() {
-        return house_nr;
-    }
-
-    public void setHouse_nr(Integer house_nr) {
-        this.house_nr = house_nr;
-    }
-
-    public String getExtra() {
-        return extra;
-    }
-
-    public void setExtra(String extra) {
-        this.extra = extra;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
-    public String getTown() {
-        return town;
-    }
-
-    public void setTown(String town) {
         this.town = town;
     }
 
-    public Region getRegion() {
-        return region;
+    @PrePersist
+    private void prePersistFunction() {
+        this.createdDate = LocalDate.now();
+        this.lastModifiedDate = LocalDate.now();
+        this.lastModifiedBy = "Me";
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalDate getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(LocalDate lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getLastupdatedBy() {
-        return lastupdatedBy;
-    }
-
-    public void setLastupdatedBy(String lastupdatedBy) {
-        this.lastupdatedBy = lastupdatedBy;
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "address_id=" + address_id +
-                ", street='" + street + '\'' +
-                ", house_nr=" + house_nr +
-                ", extra='" + extra + '\'' +
-                ", postcode='" + postcode + '\'' +
-                ", town='" + town + '\'' +
-                ", region=" + region +
-                ", createdDate=" + createdDate +
-                ", lastModifiedDate=" + lastModifiedDate +
-                ", lastupdatedBy='" + lastupdatedBy + '\'' +
-                '}';
+    @PreUpdate
+    private void preUpdateFunction() {
+        this.lastModifiedDate = LocalDate.now();
+        this.lastModifiedBy = "Me";
     }
 }

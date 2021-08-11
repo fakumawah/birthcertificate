@@ -1,9 +1,6 @@
 package de.frakit.birthcertificate.service;
 
-import de.frakit.birthcertificate.model.Citizen;
-import de.frakit.birthcertificate.model.MarriageStatus;
-import de.frakit.birthcertificate.model.Region;
-import de.frakit.birthcertificate.model.Sex;
+import de.frakit.birthcertificate.model.*;
 import de.frakit.birthcertificate.repository.CitizenRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -43,8 +40,8 @@ public class CitizenServiceTest {
         probe.setSex(Sex.MALE);
         Example<Citizen> example = Example.of(probe);
 
-        Citizen citizen1 = new Citizen("", "Fru", "Anye", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST, Sex.MALE, "fru@gmail.com", "fru@gmail.com", "1234", "5678", 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, "", LocalDate.now(), LocalDate.now(), null);
-        Citizen citizen2 = new Citizen("", "Lucy", "Mann", LocalDate.of(1984, Month.APRIL, 06), "Mankon",Region.NORTHWEST, Sex.FEMALE, "lucy@gmail.com", "anye2@gmail.com", "987632323", "0789454", 33332000L, 78784567L, 13L, MarriageStatus.MARRIED, "", LocalDate.now(), LocalDate.now(), null );
+        Address address = new Address("Bahnhofstr", 17, "Frankfurt");
+        Citizen citizen1 = new Citizen(null, "", "Fru", "Mann", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST.code(), "fru@gmail.com", "fru@gmail.com", "1234", "5678", null, 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, Sex.MALE, "", address, LocalDate.now(), LocalDate.now(), "", "", false, LocalDate.now());
         doReturn(List.of(citizen1)).when(citizenRepository).findAll(example);
 
         // Execute the service call
@@ -58,8 +55,9 @@ public class CitizenServiceTest {
     @DisplayName("Test findAll")
     void testFindAll() {
         // Setup our mock repository
-        Citizen citizen1 = new Citizen("", "Fru", "Anye", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST, Sex.MALE, "fru@gmail.com", "fru@gmail.com", "1234", "5678", 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, "", LocalDate.now(), LocalDate.now(), null);
-        Citizen citizen2 = new Citizen("", "Lucy", "Mann", LocalDate.of(1984, Month.APRIL, 06), "Mankon",Region.NORTHWEST, Sex.FEMALE, "lucy@gmail.com", "anye2@gmail.com", "987632323", "0789454", 33332000L, 78784567L, 13L, MarriageStatus.MARRIED, "", LocalDate.now(), LocalDate.now(), null );
+        Address address = new Address("Bahnhofstr", 17, "Frankfurt");
+        Citizen citizen1 = new Citizen(null, "", "Fru", "Mann", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST.code(), "fru@gmail.com", "fru@gmail.com", "1234", "5678", null, 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, Sex.MALE, "", address, LocalDate.now(), LocalDate.now(), "", "", false, LocalDate.now());
+        Citizen citizen2 = new Citizen(null, "", "Lucy", "MISTER", LocalDate.of(1982, Month.APRIL, 17), "Bonaberi", Region.LITTORAL.code(), "lucy@gmail.com", "lucy2@gmail.com", "1234", "5678", null, 10003333000L, 22233337L, 13L, MarriageStatus.MARRIED, Sex.FEMALE, "", address, LocalDate.now(), LocalDate.now(), "", "", false, LocalDate.now());
         doReturn(Arrays.asList(citizen1, citizen2)).when(citizenRepository).findAll();
 
         // Execute the service call

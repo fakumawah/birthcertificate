@@ -4,7 +4,6 @@ import de.frakit.birthcertificate.model.Citizen;
 import de.frakit.birthcertificate.model.Sex;
 import de.frakit.birthcertificate.service.CitizenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class CitizenController {
     public List<Citizen> findAllMale() {
         Citizen probe = new Citizen();
         probe.setSex(Sex.MALE);
-        probe.setFirstName("Fru");
+        probe.setFirstName("Fr");
         return citizenService.findAll(probe);
     }
 

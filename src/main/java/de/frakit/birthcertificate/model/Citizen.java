@@ -1,20 +1,32 @@
 package de.frakit.birthcertificate.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.tomcat.util.buf.HexUtils;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity(name = "Citizen")
 @Table(name = "citizen")
-public class Citizen implements Serializable {
+public class Citizen implements Serializable, Specification<Citizen> {
 
     @Id
     @Column(name = "citizenId", insertable = false, updatable = false, nullable = false)
@@ -65,6 +77,11 @@ public class Citizen implements Serializable {
     private Enum sex;
     @Column(name = "comment")
     private String comment;
+
+    @ManyToOne(targetEntity = Address.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressId", referencedColumnName = "addressId", nullable = false)
+    private Address address;
+
     @Column(name = "createdDate", nullable = false)
     private LocalDate createdDate;
     @Column(name = "lastModifiedDate", nullable = false)
@@ -77,241 +94,6 @@ public class Citizen implements Serializable {
     private Boolean deleted;
     @Column(name = "deletedOn")
     private LocalDate deletedOn;
-
-    public Citizen(String ssn,
-                   String firstName,
-                   String lastName,
-                   LocalDate birthDay,
-                   String birthTown,
-                   Region birthRegion,
-                   Enum sex,
-                   String email,
-                   String email2,
-                   String telephone,
-                   String telephone2,
-                   Long fatherSsn,
-                   Long motherSsn,
-                   Long hospitalId,
-                   Enum marriageStatus,
-                   String comment,
-                   LocalDate createdDate,
-                   LocalDate lastModifiedDate,
-                   String lastModifiedBy) {
-        this.ssn = ssn;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDay = birthDay;
-        this.birthTown = birthTown;
-        this.birthRegion = birthRegion.code();
-        this.sex = sex;
-        this.email = email;
-        this.email2 = email2;
-        this.telephone = telephone;
-        this.telephone2 = telephone2;
-        this.fatherSsn = fatherSsn;
-        this.motherSsn = motherSsn;
-        this.hospitalId = hospitalId;
-        this.marriageStatus = marriageStatus;
-        this.comment = comment;
-        this.createdDate = createdDate;
-        this.lastModifiedDate = lastModifiedDate;
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public Citizen() {
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Long getCitizenId() {
-        return citizenId;
-    }
-
-    public void setCitizenId(Long citizenId) {
-        this.citizenId = citizenId;
-    }
-
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
-    }
-
-    public String getBirthRegion() {
-        return birthRegion;
-    }
-
-    public void setBirthRegion(String birthRegion) {
-        this.birthRegion = birthRegion;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public LocalDate getBirthDay() {
-        return birthDay;
-    }
-
-    public void setBirthDay(LocalDate birthDay) {
-        this.birthDay = birthDay;
-    }
-
-    public String getBirthTown() {
-        return birthTown;
-    }
-
-    public Enum getSex() {
-        return sex;
-    }
-
-    public void setSex(Enum sex) {
-        this.sex = sex;
-    }
-
-    public void setBirthTown(String birthTown) {
-        this.birthTown = birthTown;
-    }
-
-    public Long getFatherSsn() {
-        return fatherSsn;
-    }
-
-    public void setFatherSsn(Long fatherSsn) {
-        this.fatherSsn = fatherSsn;
-    }
-
-    public Long getMotherSsn() {
-        return motherSsn;
-    }
-
-    public void setMotherSsn(Long motherSsn) {
-        this.motherSsn = motherSsn;
-    }
-
-    public Long getHospitalId() {
-        return hospitalId;
-    }
-
-    public void setHospitalId(Long hospitalId) {
-        this.hospitalId = hospitalId;
-    }
-
-    public Integer getAge() {
-        return Period.between(birthDay, LocalDate.now()).getYears();
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Enum getMarriageStatus() {
-        return marriageStatus;
-    }
-
-    public void setMarriageStatus(Enum marriageStatus) {
-        this.marriageStatus = marriageStatus;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public LocalDate getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
-    }
-
-    public LocalDate getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(LocalDate lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail2() {
-        return email2;
-    }
-
-    public void setEmail2(String email2) {
-        this.email2 = email2;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getTelephone2() {
-        return telephone2;
-    }
-
-    public void setTelephone2(String telephone2) {
-        this.telephone2 = telephone2;
-    }
-
-    public Boolean getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public LocalDate getDeletedOn() {
-        return deletedOn;
-    }
-
-    public void setDeletedOn(LocalDate deletedOn) {
-        this.deletedOn = deletedOn;
-    }
 
     @PrePersist
     private void prePersistFunction() throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -332,28 +114,10 @@ public class Citizen implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Citizen{" +
-                "citizenId=" + citizenId +
-                ", ssn='" + ssn + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", birthDay=" + birthDay +
-                ", birthTown='" + birthTown + '\'' +
-                ", email='" + email + '\'' +
-                ", email2='" + email2 + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", telephone2='" + telephone2 + '\'' +
-                ", age=" + age +
-                ", fatherSsn=" + fatherSsn +
-                ", motherSsn=" + motherSsn +
-                ", hospitalId=" + hospitalId +
-                ", marriageStatus=" + marriageStatus +
-                ", sex=" + sex +
-                ", comment='" + comment + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedDate=" + lastModifiedDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                '}';
+    public Predicate toPredicate(Root<Citizen> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        if (firstName == null) {
+            return criteriaBuilder.isTrue(criteriaBuilder.literal(true)); // always true = no filtering
+        }
+        return criteriaBuilder.equal(root.get("firstName"), this.firstName);
     }
 }
