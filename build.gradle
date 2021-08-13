@@ -31,8 +31,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'com.querydsl:querydsl-jpa:4.2.2'
+	implementation 'com.querydsl:querydsl-apt:4.2.2'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
+	implementation 'net.kaczmarzyk:specification-arg-resolver:2.0.0' //Thanks for using https://jar-download.com
+
 }
 
 mainClassName = "de.frakit.birthcertificate.BirthcertificateApplication"

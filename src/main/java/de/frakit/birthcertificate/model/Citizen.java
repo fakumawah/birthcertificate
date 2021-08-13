@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.apache.tomcat.util.buf.HexUtils;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
@@ -17,6 +20,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -49,6 +53,7 @@ public class Citizen implements Serializable, Specification<Citizen> {
 
     @Column(name = "lastName", nullable = false)
     private String lastName;
+
     @Column(name = "birthDay", nullable = false)
     private LocalDate birthDay;
     @Column(name = "birthTown", nullable = false)
@@ -82,12 +87,15 @@ public class Citizen implements Serializable, Specification<Citizen> {
     @JoinColumn(name = "addressId", referencedColumnName = "addressId", nullable = false)
     private Address address;
 
-    @Column(name = "createdDate", nullable = false)
-    private LocalDate createdDate;
-    @Column(name = "lastModifiedDate", nullable = false)
-    private LocalDate lastModifiedDate;
-    @Column(name = "lastupdatedBy", nullable = false)
+    @CreationTimestamp
+    private Instant createdDate;
+
+    @UpdateTimestamp
+    private Instant lastModifiedDate;
+
+    @LastModifiedBy
     private String lastModifiedBy;
+
     @Column(name = "imageUrl")
     private String imageUrl;
     @Column(name = "deleted")
@@ -102,22 +110,15 @@ public class Citizen implements Serializable, Specification<Citizen> {
             salt.update(UUID.randomUUID().toString().getBytes("UTF-8"));
             this.ssn = HexUtils.toHexString(salt.digest());
         }
-        this.createdDate = LocalDate.now();
-        this.lastModifiedDate = LocalDate.now();
         this.lastModifiedBy = "Me";
     }
 
-    @PreUpdate
-    private void preUpdateFunction() {
-        this.lastModifiedDate = LocalDate.now();
-        this.lastModifiedBy = "Me";
-    }
 
     @Override
     public Predicate toPredicate(Root<Citizen> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         if (firstName == null) {
             return criteriaBuilder.isTrue(criteriaBuilder.literal(true)); // always true = no filtering
         }
-        return criteriaBuilder.equal(root.get("firstName"), this.firstName);
+        return criteriaBuilder.equal(root.get("firstName"), firstName);
     }
 }

@@ -7,6 +7,9 @@ Step 2: Run a postgress image with database=birthcertificate user=birthcertifica
 -e POSTGRES_USER=birthcertificate -e POSTGRES_PASSWORD=birthcertificate2021
 -d --volumes-from PostgresData postgres -c shared_buffers=256MB -c max_connections=200`
 
+simply start and stop with
+`docker start postgres` and `docker stop post
+
 ###To build the birthcertificate application 
 Make sure to first commit all changes(even without pushing), then run
 

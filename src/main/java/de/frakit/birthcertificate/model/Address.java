@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
@@ -45,11 +47,13 @@ public class Address {
     private String town;
     @Column(name = "region")
     private Region region;
-    @Column(name = "createdDate", nullable = false)
-    private LocalDate createdDate;
-    @Column(name = "lastModifiedDate", nullable = false)
-    private LocalDate lastModifiedDate;
-    @Column(name = "lastupdatedBy", nullable = false)
+
+    @CreationTimestamp
+    private Instant createdDate;
+
+    @UpdateTimestamp
+    private Instant lastModifiedDate;
+
     private String lastModifiedBy;
 
     public Address(String street, Integer house_nr, String town) {
@@ -58,16 +62,8 @@ public class Address {
         this.town = town;
     }
 
-    @PrePersist
-    private void prePersistFunction() {
-        this.createdDate = LocalDate.now();
-        this.lastModifiedDate = LocalDate.now();
-        this.lastModifiedBy = "Me";
-    }
-
     @PreUpdate
     private void preUpdateFunction() {
-        this.lastModifiedDate = LocalDate.now();
         this.lastModifiedBy = "Me";
     }
 }

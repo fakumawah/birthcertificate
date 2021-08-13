@@ -41,7 +41,7 @@ public class CitizenServiceTest {
         Example<Citizen> example = Example.of(probe);
 
         Address address = new Address("Bahnhofstr", 17, "Frankfurt");
-        Citizen citizen1 = new Citizen(null, "", "Fru", "Mann", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST.code(), "fru@gmail.com", "fru@gmail.com", "1234", "5678", null, 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, Sex.MALE, "", address, LocalDate.now(), LocalDate.now(), "", "", false, LocalDate.now());
+        Citizen citizen1 = new Citizen(null, "", "Fru", "Mann", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST.code(), "fru@gmail.com", "fru@gmail.com", "1234", "5678", null, 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, Sex.MALE, "", address, null, null, "", "", false, LocalDate.now());
         doReturn(List.of(citizen1)).when(citizenRepository).findAll(example);
 
         // Execute the service call
@@ -56,8 +56,8 @@ public class CitizenServiceTest {
     void testFindAll() {
         // Setup our mock repository
         Address address = new Address("Bahnhofstr", 17, "Frankfurt");
-        Citizen citizen1 = new Citizen(null, "", "Fru", "Mann", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST.code(), "fru@gmail.com", "fru@gmail.com", "1234", "5678", null, 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, Sex.MALE, "", address, LocalDate.now(), LocalDate.now(), "", "", false, LocalDate.now());
-        Citizen citizen2 = new Citizen(null, "", "Lucy", "MISTER", LocalDate.of(1982, Month.APRIL, 17), "Bonaberi", Region.LITTORAL.code(), "lucy@gmail.com", "lucy2@gmail.com", "1234", "5678", null, 10003333000L, 22233337L, 13L, MarriageStatus.MARRIED, Sex.FEMALE, "", address, LocalDate.now(), LocalDate.now(), "", "", false, LocalDate.now());
+        Citizen citizen1 = new Citizen(null, "", "Fru", "Mann", LocalDate.of(1981, Month.AUGUST, 06), "Bamenda", Region.NORTHWEST.code(), "fru@gmail.com", "fru@gmail.com", "1234", "5678", null, 10002000L, 22224567L, 12L, MarriageStatus.SINGLE, Sex.MALE, "", address, null, null, "", "", false, LocalDate.now());
+        Citizen citizen2 = new Citizen(null, "", "Lucy", "MISTER", LocalDate.of(1982, Month.APRIL, 17), "Bonaberi", Region.LITTORAL.code(), "lucy@gmail.com", "lucy2@gmail.com", "1234", "5678", null, 10003333000L, 22233337L, 13L, MarriageStatus.MARRIED, Sex.FEMALE, "", address, null, null, "", "", false, LocalDate.now());
         doReturn(Arrays.asList(citizen1, citizen2)).when(citizenRepository).findAll();
 
         // Execute the service call

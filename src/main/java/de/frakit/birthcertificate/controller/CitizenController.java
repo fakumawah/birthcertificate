@@ -30,7 +30,6 @@ public class CitizenController {
     public List<Citizen> findAllMale() {
         Citizen probe = new Citizen();
         probe.setSex(Sex.MALE);
-        probe.setFirstName("Fr");
         return citizenService.findAll(probe);
     }
 
@@ -42,8 +41,27 @@ public class CitizenController {
         return citizenService.findAll(probe);
     }
 
+    @GetMapping("/{id}")
+    Citizen one(@PathVariable Long id) {
+        return citizenService.findById(id).get();
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/any/{name}")
+    public List<Citizen> findAllByFirstOrLastName(@PathVariable String name) {
+        Citizen probe = new Citizen();
+        probe.setFirstName(name);
+        return citizenService.findAllByFirstOrLastName(probe);
+    }
+
+    @GetMapping("/spec/{name}")
+    public List<Citizen> findCustomersByFirstName(@PathVariable String name) {
+        return citizenService.findAllByFirstOrLastName(name);
+    }
+
     @DeleteMapping
     public void deleteCitizen(Long citizenId) {
         citizenService.deleteCitizen(citizenId);
     }
+
 }
