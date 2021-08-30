@@ -32,3 +32,28 @@ http
                 .httpBasic();
     }
 ```
+#####To Encode the password
+Create a class called PasswordConfig with the following method
+```
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder(10);
+    }
+```
+Then add this to the ApplicationSecurityConfig
+```
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
+
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        UserDetails fruUser = User.builder()
+                .username("fru")
+                .password(passwordEncoder.encode("password"))
+                .roles("Citizen")
+                .build();
+
+        return new InMemoryUserDetailsManager(fruUser);
+    }
+```
