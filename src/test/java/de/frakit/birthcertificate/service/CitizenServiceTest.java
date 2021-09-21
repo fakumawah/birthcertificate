@@ -1,7 +1,8 @@
 package de.frakit.birthcertificate.service;
 
-import de.frakit.birthcertificate.model.*;
-import de.frakit.birthcertificate.repository.CitizenRepository;
+import de.frakit.birthcertificate.citizen.CitizenService;
+import de.frakit.birthcertificate.citizen.model.*;
+import de.frakit.birthcertificate.citizen.CitizenRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;

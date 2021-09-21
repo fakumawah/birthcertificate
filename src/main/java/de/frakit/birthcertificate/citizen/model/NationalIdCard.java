@@ -1,4 +1,4 @@
-package de.frakit.birthcertificate.model;
+package de.frakit.birthcertificate.citizen.model;
 
 import java.time.LocalDate;
 

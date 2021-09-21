@@ -1,8 +1,6 @@
-package de.frakit.birthcertificate.controller;
+package de.frakit.birthcertificate.citizen;
 
-import de.frakit.birthcertificate.model.*;
-import de.frakit.birthcertificate.repository.AddressRepository;
-import de.frakit.birthcertificate.repository.CitizenRepository;
+import de.frakit.birthcertificate.citizen.model.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

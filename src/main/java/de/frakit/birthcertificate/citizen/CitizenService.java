@@ -1,7 +1,6 @@
-package de.frakit.birthcertificate.service;
+package de.frakit.birthcertificate.citizen;
 
-import de.frakit.birthcertificate.model.Citizen;
-import de.frakit.birthcertificate.repository.CitizenRepository;
+import de.frakit.birthcertificate.citizen.model.Citizen;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;

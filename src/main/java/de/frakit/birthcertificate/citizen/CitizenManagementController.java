@@ -1,4 +1,4 @@
-package de.frakit.birthcertificate.controller;
+package de.frakit.birthcertificate.citizen;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

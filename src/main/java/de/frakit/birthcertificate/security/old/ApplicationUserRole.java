@@ -1,11 +1,11 @@
-package de.frakit.birthcertificate.security;
+package de.frakit.birthcertificate.security.old;
 
 import com.google.common.collect.Sets;
 import lombok.Getter;
 
 import java.util.Set;
 
-import static de.frakit.birthcertificate.security.ApplicationUserPermission.*;
+import static de.frakit.birthcertificate.security.old.ApplicationUserPermission.*;
 
 @Getter
 public enum ApplicationUserRole {

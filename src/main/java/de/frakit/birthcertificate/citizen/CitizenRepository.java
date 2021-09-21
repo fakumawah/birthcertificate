@@ -1,6 +1,6 @@
-package de.frakit.birthcertificate.repository;
+package de.frakit.birthcertificate.citizen;
 
-import de.frakit.birthcertificate.model.Citizen;
+import de.frakit.birthcertificate.citizen.model.Citizen;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package de.frakit.birthcertificate.security;
+package de.frakit.birthcertificate.security.old;
 
 import lombok.Getter;
 

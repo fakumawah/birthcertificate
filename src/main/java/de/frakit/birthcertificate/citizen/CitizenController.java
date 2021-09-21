@@ -1,8 +1,7 @@
-package de.frakit.birthcertificate.controller;
+package de.frakit.birthcertificate.citizen;
 
-import de.frakit.birthcertificate.model.Citizen;
-import de.frakit.birthcertificate.model.Sex;
-import de.frakit.birthcertificate.service.CitizenService;
+import de.frakit.birthcertificate.citizen.model.Citizen;
+import de.frakit.birthcertificate.citizen.model.Sex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
